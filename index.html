@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Trial 7 Hari | DaffCv Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 font-sans antialiased min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-gray-800 border border-gray-700 p-8 rounded-2xl max-w-md w-full shadow-2xl">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold tracking-wider text-white">
+                Daff<span class="text-blue-500">Cv</span>
+            </h1>
+            <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">Registrasi Akses Trial 7 Hari</p>
+        </div>
+
+        <form id="form-trial" class="space-y-4">
+            <div>
+                <label class="block text-xs text-gray-400 mb-1 font-medium">Nama User</label>
+                <input type="text" id="trial-nama" required placeholder="Contoh: Daffa Nesia" 
+                    class="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500">
+            </div>
+
+            <div>
+                <label class="block text-xs text-gray-400 mb-1 font-medium">Nomor WhatsApp Aktif</label>
+                <input type="tel" id="trial-wa" required placeholder="Contoh: 088271109247" 
+                    class="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500">
+            </div>
+
+            <div>
+                <label class="block text-xs text-gray-400 mb-1 font-medium">Keperluan Menggunakan Website Ini</label>
+                <textarea id="trial-keperluan" required rows="3" placeholder="Contoh: Untuk mencatat pengeluaran harian dan keuangan pribadi..." 
+                    class="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"></textarea>
+            </div>
+
+            <button type="submit" id="btn-submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg py-3 transition-colors text-sm shadow-lg">
+                Kirim Pendaftaran Trial
+            </button>
+        </form>
+
+        <!-- Tombol Beli Akses Premium ke WhatsApp -->
+        <div class="mt-4 pt-4 border-t border-gray-700">
+            <a href="https://wa.me/6288271109247?text=Halo%20Admin%20DaffCv,%20saya%20ingin%20membeli%20akses%20premium%20seharga%20Rp%2025.000/bulan." target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-center rounded-lg py-3 transition-colors text-sm shadow-lg">
+                <i class="fab fa-whatsapp mr-1"></i> Beli Akses Premium Cuman 25.000/bulan
+            </a>
+        </div>
+
+        <p id="status-msg" class="mt-4 text-xs text-center hidden"></p>
+    </div>
+
+    <script>
+        // ==========================================
+        // KONFIGURASI TELEGRAM BOT ADMIN
+        // ==========================================
+        const TELEGRAM_BOT_TOKEN = "MASUKKAN_BOT_TOKEN_ANDA"; // Ganti dengan Token Bot Telegram Anda
+        const TELEGRAM_CHAT_ID = "MASUKKAN_CHAT_ID_ADMIN";     // Ganti dengan Chat ID Telegram Admin
+
+        document.getElementById('form-trial').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const nama = document.getElementById('trial-nama').value.trim();
+            const wa = document.getElementById('trial-wa').value.trim();
+            const keperluan = document.getElementById('trial-keperluan').value.trim();
+            const btnSubmit = document.getElementById('btn-submit');
+            const statusMsg = document.getElementById('status-msg');
+
+            btnSubmit.innerText = "Mengirim data...";
+            btnSubmit.disabled = true;
+            statusMsg.classList.add('hidden');
+
+            // Format pesan yang akan masuk ke Telegram Admin
+            const teksPesan = `✨ *PENDAFTARAN TRIAL 7 HARI BARU* ✨\n\n` +
+                              `👤 *Nama:* ${nama}\n` +
+                              `📞 *WhatsApp:* ${wa}\n` +
+                              `💡 *Keperluan:* ${keperluan}\n\n` +
+                              `_Silakan buatkan UID akses untuk user ini._`;
+
+            try {
+                const url = `https://api.telegram.org/bot${8990756909:AAF-fPOlOu8KB42pTPGvekyjVhOIQiKIyno}/sendMessage`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: 8708074501,
+                        text: teksPesan,
+                        parse_mode: 'Markdown'
+                    })
+                });
+
+                if (response.ok) {
+                    statusMsg.innerText = "Pendaftaran berhasil! Data telah dikirim ke Admin.";
+                    statusMsg.className = "mt-4 text-xs text-center text-green-400 font-semibold";
+                    statusMsg.classList.remove('hidden');
+                    document.getElementById('form-trial').reset();
+                    btnSubmit.innerText = "Kirim Pendaftaran Trial";
+                    btnSubmit.disabled = false;
+                } else {
+                    throw new Error("Gagal mengirim pesan.");
+                }
+            } catch (err) {
+                statusMsg.innerText = "Terjadi kesalahan koneksi atau konfigurasi Bot Telegram salah.";
+                statusMsg.className = "mt-4 text-xs text-center text-red-400 font-semibold";
+                statusMsg.classList.remove('hidden');
+                btnSubmit.innerText = "Kirim Pendaftaran Trial";
+                btnSubmit.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

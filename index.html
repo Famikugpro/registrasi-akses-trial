@@ -25,7 +25,7 @@
         <form id="form-trial" class="space-y-4">
             <div>
                 <label class="block text-xs text-gray-400 mb-1 font-medium">Nama User</label>
-                <input type="text" id="trial-nama" required placeholder="Contoh: Daffa Nesia" 
+                <input type="text" id="trial-nama" required placeholder="Contoh: Daffa002" 
                     class="w-full bg-gray-900 border border-gray-700 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500">
             </div>
 
@@ -48,7 +48,7 @@
 
         <!-- Tombol Beli Akses Premium ke WhatsApp -->
         <div class="mt-4 pt-4 border-t border-gray-700">
-            <a href="https://wa.me/6288271109247?text=Halo%20Admin%20DaffCv,%20saya%20ingin%20membeli%20akses%20premium%20seharga%20Rp%2025.000/bulan." target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-center rounded-lg py-3 transition-colors text-sm shadow-lg">
+            <a href="https://wa.me/6288271109247" target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-center rounded-lg py-3 transition-colors text-sm shadow-lg">
                 <i class="fab fa-whatsapp mr-1"></i> Beli Akses Premium Cuman 25.000/bulan
             </a>
         </div>
@@ -60,8 +60,8 @@
         // ==========================================
         // KONFIGURASI TELEGRAM BOT ADMIN
         // ==========================================
-        const TELEGRAM_BOT_TOKEN = "MASUKKAN_BOT_TOKEN_ANDA"; // Ganti dengan Token Bot Telegram Anda
-        const TELEGRAM_CHAT_ID = "MASUKKAN_CHAT_ID_ADMIN";     // Ganti dengan Chat ID Telegram Admin
+        const TELEGRAM_BOT_TOKEN = "8990756909:AAF-fPOlOu8KB42pTPGvekyjVhOIQiKIyno"; // Ganti dengan Token Bot Telegram Anda
+        const TELEGRAM_CHAT_ID = "8708074501";     // Ganti dengan Chat ID Telegram Admin
 
         document.getElementById('form-trial').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -84,12 +84,12 @@
                               `_Silakan buatkan UID akses untuk user ini._`;
 
             try {
-                const url = `https://api.telegram.org/bot${8990756909:AAF-fPOlOu8KB42pTPGvekyjVhOIQiKIyno}/sendMessage`;
+                const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        chat_id: 8708074501,
+                        chat_id: TELEGRAM_CHAT_ID,
                         text: teksPesan,
                         parse_mode: 'Markdown'
                     })
